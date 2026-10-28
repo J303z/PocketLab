@@ -20,4 +20,4 @@ learnt how to do coding on an arduino uno using C++ and how to use the 16x2 LCD 
 
 <img width="2359" height="1370" alt="image" src="https://github.com/user-attachments/assets/43c5193a-80b1-441c-bc39-09fd5e7bc2cc" />
 
-**total time spent: 4.5 hours**
+**total time spent: 5 hours**
