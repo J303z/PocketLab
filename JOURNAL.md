@@ -38,4 +38,8 @@ finally made the menu appear properly without any bugs, have not integrated othe
 
 <img width="2360" height="1370" alt="image" src="https://github.com/user-attachments/assets/d4ce4a47-9946-427c-aea7-3af7c2ed0cd4" />
 
-**total time spent: 3.25 hours**
+forgot to save my project and needed to restart the coding and wiring ;-;
+
+<img width="2359" height="1376" alt="image" src="https://github.com/user-attachments/assets/4fa1224f-a6b8-44e1-ab89-69273576c327" />
+
+**total time spent: 4 hours**
