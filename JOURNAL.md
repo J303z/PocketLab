@@ -21,3 +21,21 @@ learnt how to do coding on an arduino uno using C++ and how to use the 16x2 LCD 
 <img width="2359" height="1370" alt="image" src="https://github.com/user-attachments/assets/43c5193a-80b1-441c-bc39-09fd5e7bc2cc" />
 
 **total time spent: 5 hours**
+
+# October 29: moved work from tinkercad to cirkit designer
+
+i moved my work from Thinkercad circuits to cirkit designer as cirkit designer had more components that i would need for this project like the 128x64 monochrome oled and rotatory encoder.
+
+Needed to reprogram the timer function to match with the OLED and also add the rotatory encoder’s function (and calibrate the rotatory encoder) but once this is finished, i think things should go smoothly after since coding the menus and displays and wiring the components together would be easier once i move to a physical device :D
+
+Spent about 1 hourish debugging the rotatory encoder problem that doesn’t made the LEB light up after 1 full rotation cause it si my first time using a rotatory encoder.
+
+Started on coding the menu for item selection, spent like 15 minutes trying to find out why one of my menu item where not displaying, the bug was because i forgotten the “display.display();” text to display my text on the screen. 
+
+finally made the menu appear properly without any bugs, have not integrated other components into the system yet, just a menu with the basic functions that PocketLab will have.
+
+<img width="2360" height="1373" alt="image" src="https://github.com/user-attachments/assets/e04ca1c1-dc71-4954-be54-8a9705d318d1" />
+
+<img width="2360" height="1370" alt="image" src="https://github.com/user-attachments/assets/d4ce4a47-9946-427c-aea7-3af7c2ed0cd4" />
+
+**total time spent: 3.25 hours**
