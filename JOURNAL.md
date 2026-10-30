@@ -43,3 +43,9 @@ forgot to save my project and needed to restart the coding and wiring ;-;
 <img width="2359" height="1376" alt="image" src="https://github.com/user-attachments/assets/4fa1224f-a6b8-44e1-ab89-69273576c327" />
 
 **total time spent: 4 hours**
+
+# October 30: started coding the menu for PocketLabOS
+
+today started coding PocketLab’s OS which i call PocketLabOS, planning to implement the rotatory encoder for menu item selection.
+
+**total time spent: 0.5 hours**
