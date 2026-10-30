@@ -55,4 +55,6 @@ updated some wiring to make the wiring less messy and coded and updated the OS t
 
 currently you can’t select items but I’ll do it tomorrow starting with the timer function. Also i keep forgetting to add the display.display thing after each display refresh so I’ll need to remember that to spend less time debugging the code cause of this problem ;—; (happened like 2 times today)
 
+<img width="3000" height="1678" alt="image" src="https://github.com/user-attachments/assets/780a8a6d-dc39-4dc7-9bbc-cbb3e0fe4728" />
+
 **total time spent: 3.15 hours**
