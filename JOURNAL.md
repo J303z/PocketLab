@@ -1,7 +1,7 @@
 --- 
 title: PocketLab
 author: Jayden 
-description: A modular handheld electronics multitool built around a microcontroller
+description: A modular handheld electronics multitool built around a ESP32/arduino uno
 created_at: 2026-08-27
 --- 
 
@@ -42,10 +42,17 @@ forgot to save my project and needed to restart the coding and wiring ;-;
 
 <img width="2359" height="1376" alt="image" src="https://github.com/user-attachments/assets/4fa1224f-a6b8-44e1-ab89-69273576c327" />
 
-**total time spent: 4 hours**
+**total time spent: 3.75 hours**
 
 # October 30: started coding the menu for PocketLabOS
 
 today started coding PocketLab’s OS which i call PocketLabOS, planning to implement the rotatory encoder for menu item selection.
 
-**total time spent: 0.5 hours**
+updated some wiring to make the wiring less messy and coded and updated the OS to have 
+- item selection by rotating the rotatory encoder,
+- new and improved menu
+- lED and button and rotatory encoder push functions now also works
+
+currently you can’t select items but I’ll do it tomorrow starting with the timer function. Also i keep forgetting to add the display.display thing after each display refresh so I’ll need to remember that to spend less time debugging the code cause of this problem ;—; (happened like 2 times today)
+
+**total time spent: 3.15 hours**
