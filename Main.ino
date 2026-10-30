@@ -163,7 +163,6 @@ void setup() {
 
   if (splashScreen == true) {
     startUpScreen();
-    Serial.println("started");
   } else if (splashScreen == false) {
     drawMenu();
   }
