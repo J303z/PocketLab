@@ -16,6 +16,9 @@ Adafruit_SSD1306 display(
 
 int selectedItem = 0;
 
+const int ENCODER_A = 2;
+const int ENCODER_B = 3;
+
 const char* menuItems[] = {
   "Stopwatch",
   "Calculator",
@@ -35,15 +38,26 @@ void drawMenu() {
   display.setCursor(0, 15);
   display.println("------------------");
 
-  display.display();
-
   for (int i = 0; i < 5; i++) {
-  int YScreen = 22 + (i * 8);
+    int YScreen = 22 + (i * 8);
+    if (selectedItem == i) {
+        int XScreen = 12;
+        display.fillRect(0, YScreen, SCREEN_WIDTH, 8, SSD1306_WHITE);
+        display.setTextColor(SSD1306_BLACK);
+        display.setTextSize(1);
+        display.setCursor(0, YScreen);
+        display.println("> ");
+        display.setCursor(XScreen, YScreen);
+        display.println(menuItems[i]);
+    } else {
+  display.setTextColor(SSD1306_WHITE);
   display.setTextSize(1);
   display.setCursor(0, YScreen);
   display.println(menuItems[i]);
-  display.display();
+  
+    }
 };
+display.display();
 } 
 
 void setup() {
@@ -66,4 +80,3 @@ void setup() {
 void loop() {
  
 }
-
