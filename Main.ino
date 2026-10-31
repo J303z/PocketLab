@@ -18,6 +18,14 @@ Adafruit_SSD1306 display(
 int selectedItem = 0;
 bool splashScreen = true;
 
+//debounching stuff
+int reading = HIGH;
+int lastReading = HIGH;
+int stableState = HIGH;
+
+unsigned long lastDebounceTime = 0;
+const unsigned long debounceDelay = 50;
+
 // some LED stuff
 unsigned long ledStartTime = 0;
 bool ledOn = false;
@@ -44,10 +52,59 @@ const char* menuItems[] = {
   "Resistor Helper",
   "Distance Sensor",
   "System Status"
-};
+}; 
 
-const int menuLength =
-  sizeof(menuItems) / sizeof(menuItems[0]);
+const int menuLength = sizeof(menuItems) / sizeof(menuItems[0]);
+
+void buttonRead() {
+  reading = digitalRead(ENCODER_SW);
+
+  if (splashScreen == false && reading != lastReading) {
+    lastDebounceTime = millis();
+    lastReading = reading;
+  }
+
+  if (splashScreen == false &&
+      millis() - lastDebounceTime >= debounceDelay) {
+
+    if (stableState != lastReading) {
+      stableState = lastReading;
+
+      if (stableState == LOW) {
+        openSelectedItem();
+      }
+    }
+  }
+}
+
+void openSelectedItem() {
+        switch (selectedItem) {
+  case 0:
+    Serial.println("Stopwatch");
+    break;
+
+  case 1:
+    Serial.println("Calculator");
+    break;
+
+  case 2:
+    Serial.println("Resistor Decoder");
+    break;
+
+    case 3:
+    Serial.println("Distance Sensor");
+    break;
+
+    case 4:
+    Serial.println("System Status");
+    break;
+
+    default:
+    Serial.println("error");
+    break;
+
+    }
+}
 
 void drawMenu() {
   display.clearDisplay();
@@ -206,4 +263,5 @@ void loop() {
 
     drawMenu();
   }
+  buttonRead();
 }
