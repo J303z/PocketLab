@@ -58,3 +58,9 @@ currently you can’t select items but I’ll do it tomorrow starting with the t
 <img width="3000" height="1678" alt="image" src="https://github.com/user-attachments/assets/780a8a6d-dc39-4dc7-9bbc-cbb3e0fe4728" />
 
 **total time spent: 3.15 hours**
+
+# October 31: did light coding for item selection
+
+i just did simple code to print in the console the item that is selected when you press the rotatory encoder button, there is still a bug that causes it to also open stopwatch when you click the button to exit the start up screen but I’ll fix that tmr i feel sleep deprived today ;-;
+
+**total time spent: 0.5 hours**
