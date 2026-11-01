@@ -63,4 +63,7 @@ currently you can’t select items but I’ll do it tomorrow starting with the t
 
 i just did simple code to print in the console the item that is selected when you press the rotatory encoder button, there is still a bug that causes it to also open stopwatch when you click the button to exit the start up screen but I’ll fix that tmr i feel sleep deprived today ;-;
 
+<img width="2360" height="1377" alt="image" src="https://github.com/user-attachments/assets/80690011-65a0-4812-b117-df6f24a1893a" />
+pressing the encoder button makes the arduino output the current selected item into the console
+
 **total time spent: 0.5 hours**
