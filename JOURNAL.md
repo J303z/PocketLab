@@ -67,3 +67,15 @@ i just did simple code to print in the console the item that is selected when yo
 pressing the encoder button makes the arduino output the current selected item into the console
 
 **total time spent: 0.5 hours**
+
+# November 4: added a stop watch function
+
+i added a stopwatch function to let the user measure time, i still haven’t added proper denouncing yet and i also will want to separate my files for each function and it’s code but for now it is good enough for now.
+
+<img width="2360" height="1369" alt="image" src="https://github.com/user-attachments/assets/cc8cb0d5-7e78-4886-ae38-518f8ebb7e7e" />
+
+<img width="2359" height="1367" alt="image" src="https://github.com/user-attachments/assets/1bfed3f1-4715-409d-86ad-9d5228315ee1" />
+
+<img width="2360" height="1366" alt="image" src="https://github.com/user-attachments/assets/c388ee44-f231-4884-96c1-9ed787b920cb" />
+
+**total time spent: 1.5 hours**
