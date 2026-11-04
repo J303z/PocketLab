@@ -16,7 +16,23 @@ Adafruit_SSD1306 display(
 );
 
 int selectedItem = 0;
+bool stopwatchScreen = false;
 bool splashScreen = true;
+
+//stopwatch stuff
+enum StopwatchState {
+  STOPWATCH_READY,
+  STOPWATCH_RUNNING,
+  STOPWATCH_FINISHED
+};
+
+StopwatchState stopwatchState = STOPWATCH_READY;
+
+unsigned long stopwatchStart = 0;
+unsigned long elapsedTime = 0;
+
+bool encoderPressed = false;
+bool backPressed = false;
 
 //debounching stuff
 int reading = HIGH;
@@ -56,6 +72,75 @@ const char* menuItems[] = {
 
 const int menuLength = sizeof(menuItems) / sizeof(menuItems[0]);
 
+bool buttonJustPressed(int pin, bool &wasPressed) {
+  bool isPressed = (digitalRead(pin) == LOW);
+
+  if (isPressed && !wasPressed) {
+    wasPressed = true;
+    return true;
+  }
+
+  if (!isPressed) {
+    wasPressed = false;
+  }
+
+  return false;
+}
+
+void updateStopwatch() {
+  unsigned long currentTime = elapsedTime;
+
+  if (stopwatchState == STOPWATCH_RUNNING) {
+    currentTime = millis() - stopwatchStart;
+  }
+
+  unsigned long totalSeconds = currentTime / 1000;
+  unsigned int minutes = totalSeconds / 60;
+  unsigned int seconds = totalSeconds % 60;
+  unsigned int centiseconds = (currentTime % 1000) / 10;
+
+  display.clearDisplay();
+  display.setTextColor(SSD1306_WHITE);
+
+  if (stopwatchState == STOPWATCH_READY) {
+  display.setTextSize(1);
+  display.setCursor(12, 20);
+  display.println("Press SW to start");
+
+  display.setCursor(12, 40);
+  display.println("D12: Back");
+}
+
+  else {
+    display.setTextSize(2);
+    display.setCursor(0, 10);
+
+    if (minutes < 10) display.print("0");
+    display.print(minutes);
+    display.print(":");
+
+    if (seconds < 10) display.print("0");
+    display.print(seconds);
+    display.print(":");
+
+    if (centiseconds < 10) display.print("0");
+    display.print(centiseconds);
+
+    display.setTextSize(1);
+    display.setCursor(0, 45);
+
+    if (stopwatchState == STOPWATCH_RUNNING) {
+      display.print("RUNNING");
+    } else {
+      display.print("FINISHED");
+      display.setCursor(0, 55);
+      display.print("SW: Restart  D12: Menu");
+    }
+  }
+
+  display.display();
+}
+
 void buttonRead() {
   reading = digitalRead(ENCODER_SW);
 
@@ -79,9 +164,12 @@ void buttonRead() {
 
 void openSelectedItem() {
         switch (selectedItem) {
-  case 0:
-    Serial.println("Stopwatch");
-    break;
+
+case 0:
+  stopwatchScreen = true;
+  stopwatchState = STOPWATCH_READY;
+  elapsedTime = 0;
+  break;
 
   case 1:
     Serial.println("Calculator");
@@ -239,16 +327,54 @@ void loop() {
       digitalRead(ENCODER_SW) == LOW
     ) {
       splashScreen = false;
+      encoderPressed = (digitalRead(ENCODER_SW) == LOW);
+backPressed = (digitalRead(BUTTON_1) == LOW);
       triggerLED();
       drawMenu();
     } else if (digitalRead(BUTTON_1) == LOW) {
       splashScreen = false;
+      encoderPressed = (digitalRead(ENCODER_SW) == LOW);
+backPressed = (digitalRead(BUTTON_1) == LOW);
       triggerLED();
       drawMenu();
     }
 
     return;
   }
+
+
+if (stopwatchScreen) {
+
+  // Encoder SW: start, stop, or restart
+  if (buttonJustPressed(ENCODER_SW, encoderPressed)) {
+
+    if (stopwatchState == STOPWATCH_READY) {
+      stopwatchStart = millis();
+      stopwatchState = STOPWATCH_RUNNING;
+    }
+
+    else if (stopwatchState == STOPWATCH_RUNNING) {
+      elapsedTime = millis() - stopwatchStart;
+      stopwatchState = STOPWATCH_FINISHED;
+    }
+
+    else if (stopwatchState == STOPWATCH_FINISHED) {
+      elapsedTime = 0;
+      stopwatchStart = millis();
+      stopwatchState = STOPWATCH_RUNNING;
+    }
+  }
+
+  // D12: return to menu
+  if (buttonJustPressed(BUTTON_1, backPressed)) {
+    stopwatchScreen = false;
+    drawMenu();
+    return;
+  }
+
+  updateStopwatch();
+  return;
+}
 
   if (movement != 0) {
     selectedItem += movement;
