@@ -82,7 +82,7 @@ i added a stopwatch function to let the user measure time, i still haven’t add
 
 # November 5: revised the code for the OS
 
-i added function pointers and removed the old itemmenu array. also removed distance sensor cause i think ill attach it onto the device from the rails separately.
+i added function pointers/structs (i think that is what they are called) for each item menu and removed the old itemmenu array. also removed distance sensor cause i think ill attach it onto the device from the rails separately.
 
 also added .h and .cpp for all menu items and the menu so I’ll move and arrange the code accordingly to the files so it is easier to find and edit code because now it is so hard to find the code that i want to edit.
 
