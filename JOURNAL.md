@@ -79,3 +79,11 @@ i added a stopwatch function to let the user measure time, i still haven’t add
 <img width="2360" height="1366" alt="image" src="https://github.com/user-attachments/assets/c388ee44-f231-4884-96c1-9ed787b920cb" />
 
 **total time spent: 1.5 hours**
+
+# November 5: revised the code for the OS
+
+i added function pointers and removed the old itemmenu array. also removed distance sensor cause i think ill attach it onto the device from the rails separately.
+
+also added .h and .cpp for all menu items and the menu so I’ll move and arrange the code accordingly to the files so it is easier to find and edit code because now it is so hard to find the code that i want to edit.
+
+**total time spent: 2 hours**
