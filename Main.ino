@@ -62,13 +62,23 @@ const int LED_1 = 13;
 volatile int direction = 0;
 volatile int lastA = HIGH;
 
-const char* menuItems[] = {
-  "Stopwatch",
-  "Calculator",
-  "Resistor Helper",
-  "Distance Sensor",
-  "System Status"
-}; 
+//some functions open things
+void openStopwatch();
+void openCalculator();
+void openResistorDecoder();
+void openSystemStatus();
+
+struct MenuItem {
+    const char* name;
+    void (*openFunction)();
+};
+
+MenuItem menuItems[] = {
+    {"Stopwatch", openStopwatch},
+    {"Calculator", openCalculator},
+    {"Resistor decoder", openResistorDecoder},
+    {"System Status", openSystemStatus}
+};
 
 const int menuLength = sizeof(menuItems) / sizeof(menuItems[0]);
 
@@ -85,6 +95,25 @@ bool buttonJustPressed(int pin, bool &wasPressed) {
   }
 
   return false;
+}
+
+void openResistorDecoder() {
+    Serial.println("resistor decoder");
+}
+
+void openCalculator() {
+    Serial.println("calculator");
+}
+
+void openSystemStatus() {
+    Serial.println("system status");
+}
+
+void openStopwatch() {
+    stopwatchScreen = true;
+    stopwatchState = STOPWATCH_READY;
+    elapsedTime = 0;
+    stopwatchStart = 0;
 }
 
 void updateStopwatch() {
@@ -163,35 +192,9 @@ void buttonRead() {
 }
 
 void openSelectedItem() {
-        switch (selectedItem) {
-
-case 0:
-  stopwatchScreen = true;
-  stopwatchState = STOPWATCH_READY;
-  elapsedTime = 0;
-  break;
-
-  case 1:
-    Serial.println("Calculator");
-    break;
-
-  case 2:
-    Serial.println("Resistor Decoder");
-    break;
-
-    case 3:
-    Serial.println("Distance Sensor");
-    break;
-
-    case 4:
-    Serial.println("System Status");
-    break;
-
-    default:
-    Serial.println("error");
-    break;
-
-    }
+        if (selectedItem >= 0 && selectedItem < menuLength) {
+            menuItems[selectedItem].openFunction();
+}
 }
 
 void drawMenu() {
@@ -215,12 +218,12 @@ void drawMenu() {
       display.println("> ");
 
       display.setCursor(XScreen, YScreen);
-      display.println(menuItems[i]);
+      display.println(menuItems[i].name);
     } else {
       display.setTextColor(SSD1306_WHITE);
       display.setTextSize(1);
       display.setCursor(0, YScreen);
-      display.println(menuItems[i]);
+      display.println(menuItems[i].name);
     }
   }
 
