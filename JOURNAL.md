@@ -90,3 +90,15 @@ also added .h and .cpp for all menu items and the menu so I’ll move and arrang
 (uploaded the image cause idk what image suits here)
 
 **total time spent: 2 hours**
+
+# Novemeber 5: moved stopwatch code to .h and .cpp files
+
+i managed to move the files to their own .h and .cpp files, but when i tried debugging a bug that cause the stopwatch to immediately start measuring time after you re-enter it, the OLED initialisation keeps failing and after A LOT of debugging help from ChatGPT, i concluded it could be memory issues and therefore i might need to upgrade to an ESP32-S3 soon.
+
+at least i would have wifi, Bluetooth and other new capabilities that the arduino uno doesn’t have (and need to re-wire everything ;-;).
+
+also weird text keeps appearing on my OLED i think also smth to do with the memory issues? i think.
+
+<img width="2360" height="1387" alt="image" src="https://github.com/user-attachments/assets/c0efec0b-e0c7-4e47-ae5f-e7c0f454daae" />
+
+**total time spent: 3 hours**
