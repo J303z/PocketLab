@@ -1,3 +1,4 @@
+#include "Stopwatch.h"
 
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -15,22 +16,12 @@ Adafruit_SSD1306 display(
   OLED_RESET
 );
 
+//some screen stuff
 int selectedItem = 0;
 bool stopwatchScreen = false;
 bool splashScreen = true;
 
-//stopwatch stuff
-enum StopwatchState {
-  STOPWATCH_READY,
-  STOPWATCH_RUNNING,
-  STOPWATCH_FINISHED
-};
-
-StopwatchState stopwatchState = STOPWATCH_READY;
-
-unsigned long stopwatchStart = 0;
-unsigned long elapsedTime = 0;
-
+//encoder?
 bool encoderPressed = false;
 bool backPressed = false;
 
@@ -63,7 +54,6 @@ volatile int direction = 0;
 volatile int lastA = HIGH;
 
 //some functions open things
-void openStopwatch();
 void openCalculator();
 void openResistorDecoder();
 void openSystemStatus();
@@ -109,67 +99,6 @@ void openSystemStatus() {
     Serial.println("system status");
 }
 
-void openStopwatch() {
-    stopwatchScreen = true;
-    stopwatchState = STOPWATCH_READY;
-    elapsedTime = 0;
-    stopwatchStart = 0;
-}
-
-void updateStopwatch() {
-  unsigned long currentTime = elapsedTime;
-
-  if (stopwatchState == STOPWATCH_RUNNING) {
-    currentTime = millis() - stopwatchStart;
-  }
-
-  unsigned long totalSeconds = currentTime / 1000;
-  unsigned int minutes = totalSeconds / 60;
-  unsigned int seconds = totalSeconds % 60;
-  unsigned int centiseconds = (currentTime % 1000) / 10;
-
-  display.clearDisplay();
-  display.setTextColor(SSD1306_WHITE);
-
-  if (stopwatchState == STOPWATCH_READY) {
-  display.setTextSize(1);
-  display.setCursor(12, 20);
-  display.println("Press SW to start");
-
-  display.setCursor(12, 40);
-  display.println("D12: Back");
-}
-
-  else {
-    display.setTextSize(2);
-    display.setCursor(0, 10);
-
-    if (minutes < 10) display.print("0");
-    display.print(minutes);
-    display.print(":");
-
-    if (seconds < 10) display.print("0");
-    display.print(seconds);
-    display.print(":");
-
-    if (centiseconds < 10) display.print("0");
-    display.print(centiseconds);
-
-    display.setTextSize(1);
-    display.setCursor(0, 45);
-
-    if (stopwatchState == STOPWATCH_RUNNING) {
-      display.print("RUNNING");
-    } else {
-      display.print("FINISHED");
-      display.setCursor(0, 55);
-      display.print("SW: Restart  D12: Menu");
-    }
-  }
-
-  display.display();
-}
-
 void buttonRead() {
   reading = digitalRead(ENCODER_SW);
 
@@ -192,9 +121,12 @@ void buttonRead() {
 }
 
 void openSelectedItem() {
-        if (selectedItem >= 0 && selectedItem < menuLength) {
-            menuItems[selectedItem].openFunction();
-}
+    if (selectedItem >= 0 && selectedItem < menuLength) {
+        menuItems[selectedItem].openFunction();
+
+        encoderPressed = (digitalRead(ENCODER_SW) == LOW);
+        backPressed = (digitalRead(BUTTON_1) == LOW);
+    }
 }
 
 void drawMenu() {
@@ -228,6 +160,7 @@ void drawMenu() {
   }
 
   display.display();
+  Serial.println(stopwatchState);
 }
 
 void startUpScreen() {
@@ -278,6 +211,19 @@ void updateLED() {
 
 void setup() {
   Serial.begin(9600);
+
+  Wire.begin();
+
+Serial.println("Scanning I2C...");
+
+for (byte address = 1; address < 127; address++) {
+  Wire.beginTransmission(address);
+
+  if (Wire.endTransmission() == 0) {
+    Serial.print("Found device at 0x");
+    Serial.println(address, HEX);
+  }
+}
 
   if (!display.begin(
         SSD1306_SWITCHCAPVCC,
@@ -348,7 +294,6 @@ backPressed = (digitalRead(BUTTON_1) == LOW);
 
 if (stopwatchScreen) {
 
-  // Encoder SW: start, stop, or restart
   if (buttonJustPressed(ENCODER_SW, encoderPressed)) {
 
     if (stopwatchState == STOPWATCH_READY) {
