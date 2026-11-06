@@ -86,4 +86,7 @@ i added function pointers/structs (i think that is what they are called) for eac
 
 also added .h and .cpp for all menu items and the menu so I’ll move and arrange the code accordingly to the files so it is easier to find and edit code because now it is so hard to find the code that i want to edit.
 
+<img width="2360" height="1534" alt="image" src="https://github.com/user-attachments/assets/3253ce3b-bd69-4946-9fb1-90f4be7288f5" />
+(uploaded the image cause idk what image suits here)
+
 **total time spent: 2 hours**
